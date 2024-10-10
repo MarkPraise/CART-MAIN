@@ -1,0 +1,31 @@
+@import "variable"; 
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    font-family: $font-family;
+    font-size: $fs-16;
+    background-color: color("100");
+
+    @include mp("tablet"){
+        display: flex;
+        justify-content: center;
+    }
+    
+}
+
+img{
+    width: 100%;
+    display: block;
+}
+h2,h3{
+    font-weight: 100;
+}
+.cart{
+    width: 24px;
+}
+

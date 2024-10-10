@@ -1,0 +1,165 @@
+.container{
+    margin:0 auto ;
+    padding-inline: 15px;
+
+    
+    .menu{
+        @include mp("tablet"){
+            max-width: 680px;
+        
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            gap: 15px;
+            
+            min-height: 80vh;
+
+            .menu-item{
+                flex-basis: 45%; 
+            }
+
+            .add{
+                padding: 4px 10px;
+                right: 24px;
+                bottom: -15px;
+            }
+        }
+
+        @include mp(desktop-sm){
+            .menu-item{
+                flex-basis: 30%;
+            }
+
+            .add{
+                right:38px;
+            }
+        }
+        
+        &-item{
+            margin-block: 20px;
+        }
+
+        &-img{
+            position: relative;
+
+            &>img{
+                border-radius: 15px;
+                height: 50%;
+                width: 100%;
+            }  
+            
+            &.active{
+                border: 2px solid $Red;
+                border-radius: 15px;
+            }
+        }
+
+        &-heading{
+            margin-block-start: 30px;
+
+            font-size: 0.9rem;
+            font-weight: weight(medium);
+            color: color("400");
+        }
+
+        &-subheading{
+            font-weight: weight(bold);
+            color: color("900");
+        
+        }
+        &-price{
+            color: color("500");
+            font-weight: weight(bold);
+        }
+    }
+
+    @include mp("mobile"){
+        max-width: 300px;
+    }
+    @include mp("mobile-md"){
+        max-width: 350px;
+
+        .add{
+            right: 80px;
+        }
+    }
+    @include mp("tablet-sm"){
+        max-width: 450px;
+    }
+    
+    @include mp("desktop-sm"){
+        max-width:940px ;
+    }
+
+    @include mp("desktop-md"){
+        max-width: 1150px;
+    }
+
+    @include mp("desktop-lg"){
+        max-width: 1300px;
+    }
+}
+
+// UTILITY
+
+.add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid color("300");
+    padding: 8px 20px;
+    gap: 8px;
+    font-weight: weight("medium");
+    position: absolute;
+    border-radius: 20px;
+    bottom: -20px;
+    right: 58px;
+    background-color: color("50");
+
+    width: max-content;
+}
+
+.add.active{
+    background-color: $Red;
+    color: color("50");
+    right: 75px;
+    justify-content: space-between;
+    padding-block: 8px;
+   
+    @include mp("mobile-md"){
+        right:100px;
+    }
+
+    @include mp("tablet"){
+        left:35px;
+    }
+
+    @include mp("desktop-sm"){
+        left:45px;
+    }
+
+    img{
+        border: 1px solid color("50");
+        padding: 1.5px;
+        border-radius: 50%;
+       
+    }
+    .minus{
+        margin-inline-end: 20px;
+    }
+    .plus{
+        margin-inline-start: 20px;
+    }
+    
+    .itemQty{
+        align-self: center;
+      
+    }
+}
+
+
+
+main .container{
+    margin: 20px auto;
+}
