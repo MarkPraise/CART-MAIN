@@ -137,6 +137,13 @@ h2, h3 {
   background-color: hsl(20, 50%, 98%);
   width: -moz-max-content;
   width: max-content;
+  transition: 0.8s;
+}
+.add:hover {
+  border: 2px solid hsl(14, 86%, 42%);
+  color: hsl(14, 86%, 42%);
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .add.active {
@@ -245,6 +252,11 @@ main .container {
   border: none;
   background-color: hsl(14, 86%, 42%);
   color: #fff;
+  cursor: pointer;
+  transition: 0.8s;
+}
+.aside footer .confirmButton:hover {
+  background-color: #982c0b;
 }
 
 .item {

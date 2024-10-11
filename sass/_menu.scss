@@ -118,6 +118,16 @@
     background-color: color("50");
 
     width: max-content;
+
+    transition: 0.8s;
+
+    &:hover{
+        border: 2px solid $Red;
+        color: $Red;
+        cursor: pointer;
+        opacity: 0.8;
+    }
+    
 }
 
 .add.active{
@@ -126,7 +136,8 @@
     right: 75px;
     justify-content: space-between;
     padding-block: 8px;
-   
+    
+
     @include mp("mobile-md"){
         right:100px;
     }
@@ -146,7 +157,7 @@
        
     }
     .minus{
-        margin-inline-end: 20px;
+        margin-inline-end: 20px;    
     }
     .plus{
         margin-inline-start: 20px;

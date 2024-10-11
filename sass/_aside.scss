@@ -72,6 +72,13 @@
             border: none;
             background-color: $Red;
             color:#fff;
+            cursor:pointer;
+
+            transition: 0.8s;
+
+            &:hover{
+                background-color: darken($Red,10%);
+            }
         }
         
     }
