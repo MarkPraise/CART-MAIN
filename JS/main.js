@@ -211,7 +211,7 @@ document.addEventListener("readystatechange",(e)=>{
         function generateFooterContent(){
             const footer =document.querySelector(".aside footer");
 
-            const flag =basket.filter((item)=>item.qty===0).length === 9;
+            const flag =getTotal() === 0;
             const aside =document.querySelector(".aside");
             if(flag){
                 aside.innerHTML =`
@@ -236,11 +236,8 @@ document.addEventListener("readystatechange",(e)=>{
                 </p>
                 <button class=confirmButton>Confirm Order</button>
                 `
+                clickConfirm()
             }
-           
-
-            clickConfirm();
-
             
         }
 
@@ -280,9 +277,20 @@ document.addEventListener("readystatechange",(e)=>{
         function clickConfirm(){
             const confirmButton =document.querySelector(".confirmButton");
 
-            confirmButton.addEventListener("click",()=>{
-                
-            })
+            confirmButton.addEventListener("click",displayDialog)
+        }
+
+        function displayDialog(){
+            const modalDialog =document.querySelector("[data-confirm-dialog]");
+            
+            modalDialog.innerHTML =`
+                <img src=../dist/images/icon-order-confirmed.svg alt=confirm-icon>
+                <h2 class=modal-header>Order Confirmed</h2>
+                <p>We hope you enjoy your food!</p>
+            `
+
+            console.log(basket);
+            modalDialog.showModal()
         }
 
     }    
