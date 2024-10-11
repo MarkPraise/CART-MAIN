@@ -174,6 +174,11 @@ document.addEventListener("readystatechange",(e)=>{
                 return item.qty !== 0;
             })
 
+            const totalOrderAmount = (basket.filter((item)=>{
+                return item.qty !=0;
+            }).map(({qty,price})=>{
+                return qty*price;
+            }).reduce((total,next)=>total + next,0)).toFixed(2);
 
            arr = (arr.map((item)=>{
                 return `
@@ -189,11 +194,16 @@ document.addEventListener("readystatechange",(e)=>{
                         <button class="cancelButton" aria-label="Remove Item">
                                 <img src="../dist/images/icon-remove-item.svg" alt="Remove Button"/>
                         </button>
+
+                        
                     </div>
                 `
             })).join(" ")
 
-            document.querySelector("[data-cartItems]").innerHTML = arr;
+            document.querySelector("[data-cartItems]").innerHTML = arr + `<div class=itemsTotal>
+                            <span>Order Total</span>
+                            <span class="totalOrder">$${totalOrderAmount}</span>
+                        </div>`;
 
             removeItemFromCart(document.getElementsByClassName("cancelButton"))
         }
@@ -201,24 +211,36 @@ document.addEventListener("readystatechange",(e)=>{
         function generateFooterContent(){
             const footer =document.querySelector(".aside footer");
 
-            const totalOrderAmount = (basket.filter((item)=>{
-                return item.qty !=0;
-            }).map(({qty,price})=>{
-                return qty*price;
-            }).reduce((total,next)=>total + next,0)).toFixed(2);
-
-           footer.innerHTML =`
-                <header>
-                    <span>Order Total</span>
-                    <span class="totalOrder">$${totalOrderAmount}</span>
-                </header>
+            const flag =basket.filter((item)=>item.qty===0).length === 9;
+            const aside =document.querySelector(".aside");
+            if(flag){
+                aside.innerHTML =`
+                    <div class="container">
+                        <h2 class="aside-h2">Your Cart(<span class="qty" data-totalQty >0</span>)</h2>
+                        <div class="aside-img">
+                            <img src="../dist/images/illustration-empty-cart.svg" alt="">
+                        </div>
+                        <div data-cartItems></div>
+                    <footer>
+                        <p class="aside-p">Your added Items will appear here</p>
+                    </footer>
+                    </div>
+                `
+            }
+            else{
+                footer.innerHTML =`
                 <p class=footer-p>
                     <img src="../dist/images/icon-carbon-neutral.svg" alt="">
                     <span> This is a<span class=carbon> carbon-neutral </span> delievery
                     </span>
                 </p>
                 <button class=confirmButton>Confirm Order</button>
-           `
+                `
+            }
+           
+
+            clickConfirm();
+
             
         }
 
@@ -254,5 +276,14 @@ document.addEventListener("readystatechange",(e)=>{
                 }
             }
         }
+
+        function clickConfirm(){
+            const confirmButton =document.querySelector(".confirmButton");
+
+            confirmButton.addEventListener("click",()=>{
+                
+            })
+        }
+
     }    
 })

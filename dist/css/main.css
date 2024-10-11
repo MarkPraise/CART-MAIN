@@ -222,14 +222,6 @@ main .container {
   color: hsl(14, 86%, 42%);
   font-weight: 700;
 }
-.aside footer header {
-  display: flex;
-  justify-content: space-between;
-}
-.aside footer .totalOrder {
-  font-weight: 700;
-  font-size: 1.8rem;
-}
 .aside footer .footer-p {
   display: flex;
   margin-block: 24px;
@@ -288,4 +280,20 @@ main .container {
   border: 2px solid hsl(14, 25%, 72%);
   padding: 2px;
   border-radius: 50%;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.item .cancelButton:hover {
+  padding: 4px;
+  border-color: #000;
+}
+
+.itemsTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.itemsTotal .totalOrder {
+  font-weight: 700;
+  font-size: 1.8rem;
 }/*# sourceMappingURL=main.css.map */

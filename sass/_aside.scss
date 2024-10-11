@@ -41,14 +41,7 @@
     }
 
     footer{
-        header{
-            display: flex;
-            justify-content: space-between;
-        }
-        .totalOrder{
-            font-weight: weight(bold);
-            font-size: 1.8rem;
-        }
+        
         .footer-p{
             display: flex;
             margin-block: 24px;
@@ -112,10 +105,29 @@
             color: color("500");
             font-weight: 700;
         }
+
     }
     .cancelButton{
         border: 2px solid color("300");
         padding: 2px;
         border-radius: 50%;
+        transition:0.3s;
+        cursor: pointer;
+
+        &:hover{
+            padding: 4px;
+            border-color: #000;
+        }
+    }
+}
+
+.itemsTotal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .totalOrder{
+        font-weight: weight(bold);
+        font-size: 1.8rem;
     }
 }
