@@ -350,6 +350,11 @@ main .container {
 [data-confirm-dialog] .item .item-detail {
   flex-grow: 2;
 }
+@media (max-width: 490px) {
+  [data-confirm-dialog] .item .item-detail h2 {
+    font-size: 0.8rem;
+  }
+}
 [data-confirm-dialog] .item .item-img {
   width: 20%;
   height: auto;
@@ -378,4 +383,9 @@ main .container {
 }
 [data-confirm-dialog] .newOrderButton:hover {
   background-color: #982c0b;
+}
+
+::backdrop {
+  background-color: hsl(14, 25%, 72%);
+  opacity: 0.75;
 }/*# sourceMappingURL=main.css.map */

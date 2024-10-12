@@ -177,6 +177,11 @@
         }
         .item-detail{
             flex-grow: 2;
+
+            @include mpsmall{
+
+                h2{font-size: 0.8rem;}
+            }
         }
 
         .item-img{
@@ -198,4 +203,9 @@
         @include button;
         margin-block-start: 10px;
     }
+}
+
+::backdrop{
+    background-color: color("300");
+    opacity: 0.75;
 }
