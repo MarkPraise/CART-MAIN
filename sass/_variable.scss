@@ -52,3 +52,28 @@ $fw:(
         @content;
     }
 }
+
+@mixin mpsmall{
+    @media (max-width:490px){
+        @content;
+    }
+}
+
+@mixin button{
+    width: 100%;
+    padding: 0.8rem;
+    font: inherit;
+    border-radius: 24px;
+
+    border: none;
+    background-color: $Red;
+    color:#fff;
+    cursor:pointer;
+
+    transition: 0.8s;
+    margin-block-end: 10px;
+
+    &:hover{
+        background-color: darken($Red,10%);
+    }
+}

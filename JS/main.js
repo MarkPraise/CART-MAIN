@@ -2,6 +2,13 @@
 document.addEventListener("readystatechange",(e)=>{
     if(document.readyState ==="complete"){
         const menu =document.querySelector(".menu");
+        const menuImg = document.querySelectorAll(".menu-img");
+        
+        function removeActiveClasses(menuImg){
+            menuImg.forEach((element)=>{
+                element.classList.remove("active");
+            })   
+        }
 
         let requestData = (async ()=>{
             const request = await fetch('../data.json');
@@ -58,9 +65,9 @@ document.addEventListener("readystatechange",(e)=>{
                 
                 highlightClickedItem(addItems)
                 })
-        })();
+        });
 
-
+        generateMenuItems();
         function highlightClickedItem(array){
             array.forEach((item)=>{
                 if(!item.classList.contains("active")){
@@ -159,12 +166,21 @@ document.addEventListener("readystatechange",(e)=>{
             const elem =document.querySelector("[data-totalQty]");
 
             elem.textContent =total;
+
         }
 
         function displayCartItems(){
 
             document.querySelector(".aside-img").style.display = "none";
+
+            const totalOrderAmount = (basket.filter((item)=>{
+                return item.qty !== 0;
+            }).map(({qty,price})=>{
+                return qty*price;
+            }).reduce((total,next)=>total + next,0)).toFixed(2);
+
             let arr =[];
+
             for(let item in basket){
                 let {name,price,qty} =basket[item];
                 arr.push({name,price,qty})
@@ -173,12 +189,6 @@ document.addEventListener("readystatechange",(e)=>{
             arr =arr.filter((item)=>{
                 return item.qty !== 0;
             })
-
-            const totalOrderAmount = (basket.filter((item)=>{
-                return item.qty !=0;
-            }).map(({qty,price})=>{
-                return qty*price;
-            }).reduce((total,next)=>total + next,0)).toFixed(2);
 
            arr = (arr.map((item)=>{
                 return `
@@ -198,7 +208,7 @@ document.addEventListener("readystatechange",(e)=>{
                         
                     </div>
                 `
-            })).join(" ")
+            })).join(" ");
 
             document.querySelector("[data-cartItems]").innerHTML = arr + `<div class=itemsTotal>
                             <span>Order Total</span>
@@ -282,16 +292,91 @@ document.addEventListener("readystatechange",(e)=>{
 
         function displayDialog(){
             const modalDialog =document.querySelector("[data-confirm-dialog]");
-            
-            modalDialog.innerHTML =`
-                <img src=../dist/images/icon-order-confirmed.svg alt=confirm-icon>
-                <h2 class=modal-header>Order Confirmed</h2>
-                <p>We hope you enjoy your food!</p>
-            `
 
-            console.log(basket);
+            const totalCost = basket.map(({qty,price})=>{
+                return qty*price;
+            }).reduce((item,total)=>item+total,0).toFixed(2);
+
+            
+            const totalDiv =document.createElement("div");
+
+            totalDiv.className="modal-total-wrapper";
+
+            totalDiv.innerHTML=`<span> Order Total </span>
+                                <span class=modal-total>$${totalCost}</span>
+            `;
+            const modalDialogContainer =modalDialog.querySelector(".container");
+            
+            modalDialogContainer.innerHTML =`
+                <div class="confirm-image-wrapper">
+                    <img src=../dist/images/icon-order-confirmed.svg alt=confirm-icon>
+                </div>
+                <h2 class=modal-header>Order Confirmed</h2>
+                <p class=modal-p>We hope you enjoy your food!</p>
+            `;
+            
+            modalDialogContainer.innerHTML +=`
+                                         <div class=itemWraps>
+                                             ${generateOrderedCartItems()}     
+                                         </div>
+                                         <button class=newOrderButton>
+                                             Start New order
+                                         </button>
+                         `
+            
+            document.querySelector(".itemWraps").appendChild(totalDiv);
             modalDialog.showModal()
+
+            closeModal(modalDialog)
+        }
+        
+        function generateOrderedCartItems(){
+
+            let arr =[];
+            basket.forEach(({image:{thumbnail},name,price,qty})=>{
+                arr.push({thumbnail,name,price,qty})
+            })
+            
+            arr =arr.filter((item)=>{
+                return item.qty !== 0;
+            })
+
+
+            arr = (arr.map((item)=>{
+                    return `
+                        <div class="item">
+                            <div class="item-container">
+                                <div class=item-img>
+                                    <img src=${item.thumbnail}>
+                                </div>
+                                <div class="item-detail">
+                                    <h2>${item.name}</h2>
+                                    <div>
+                                        <span class=item-qty>${item.qty}x</span>
+                                        <span class="item-price">@ $${item.price.toFixed(2)}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                        <span class=item-total>$${(item.qty * item.price).toFixed(2)}</span>
+                                </div>
+                            </div>  
+                        </div>
+                    `})).join(" ");
+            return arr;
         }
 
+        function closeModal(dialog){
+            const orderButton =document.querySelector(".newOrderButton");
+
+            orderButton.addEventListener("click",()=>{
+
+                basket.forEach((item)=>{
+                    item.qty = 0;
+                })
+                generateFooterContent();
+                generateMenuItems();
+                dialog.close();
+            })
+        }
     }    
 })
